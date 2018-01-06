@@ -1,8 +1,8 @@
 @using Microsoft.AspNetCore.Identity
 @using WebApplication.Models
-
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+@using IdentityCore.Library;
+@inject SignInManager<MyIdentityUser> SignInManager
+@inject UserManager<MyIdentityUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {

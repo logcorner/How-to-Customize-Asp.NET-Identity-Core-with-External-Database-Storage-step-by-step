@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace WebApplication.Models
+﻿namespace WebApplication.Models
 {
-    // Add profile data for application users by adding properties to the ApplicationUser class
-    public class ApplicationUser : IdentityUser
-    {
-    }
+    // Add profile data for application users by adding properties to the MyIdentityUser class
+    //public class MyIdentityUser : IdentityUser
+    //{
+    //}
 }

@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using IdentityCore.Library;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebApplication.Data;
-using WebApplication.Models;
 using WebApplication.Services;
 
 namespace WebApplication
@@ -25,9 +25,15 @@ namespace WebApplication
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            services.AddIdentity<MyIdentityUser, MyIdentityRole<string>>(
+                 config =>
+                 {
+                     config.SignIn.RequireConfirmedEmail = true;
+                 })
+                 .AddDefaultTokenProviders();
+
+            services.AddTransient<IUserStore<MyIdentityUser>, MyUserStore<MyIdentityUser>>();
+            services.AddTransient<IRoleStore<MyIdentityRole<string>>, MyRoleStore<MyIdentityRole<string>>>();
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
